@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- SQL구문을 기술하는 공간 -->
+
+  <mapper namespace="kr.smhrd.model.CalendarDAO">
+	<select id="calendarList" parameterType="kr.smhrd.model.CalendarVO" resultType="kr.smhrd.model.CalendarVO">
+		select cd_title, cd_start_date, cd_end_date from CALENDAR where user_id=#{user_id}
+	</select>
+	
+	<insert id="register" parameterType="kr.smhrd.model.CalendarVO">
+		INSERT INTO CALENDAR VALUES(calendar_seq.nextval,#{cd_title},#{cd_place},
+#{cd_start_date},#{cd_end_date},#{cd_content}, #{user_id})
+	</insert>
+	
+	
+	<select id="calendarDetail" parameterType="kr.smhrd.model.CalendarVO" resultType="kr.smhrd.model.CalendarVO">
+		select * from CALENDAR where cd_title = #{cd_title}
+	</select>
+	
+	
+	
+
+  </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

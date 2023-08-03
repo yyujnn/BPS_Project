@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.smhrd.model.BoardDAO">
+		
+		<select id="getList" resultType="kr.smhrd.model.BoardVO" parameterType="kr.smhrd.model.BoardVO">
+			select * from post where PROJECT_NAME=#{project_name} ORDER BY INDATE
+		</select>
+		
+		<select id="get" resultType="kr.smhrd.model.BoardVO" parameterType="kr.smhrd.model.BoardVO">
+			select * from post where post_id=#{post_id}
+		</select>
+		
+		<select id="getComm" resultType="kr.smhrd.model.CommVO" parameterType="kr.smhrd.model.CommVO">
+			select * from MENT where post_id=#{post_id}
+		</select>
+		
+		
+		<insert id="register1" parameterType="kr.smhrd.model.BoardVO" >
+			insert into post(post_id, project_name, post_title, post_detail, post_writer)
+			values(post_seq1.nextval, #{project_name}, #{post_title}, #{post_detail}, #{post_writer})
+		</insert>
+		
+		<select id="getFile" resultType="kr.smhrd.model.FileVO">
+			select file_name, real_file_name from ATTACH where post_id=#{post_id}
+		</select>
+		
+		<insert id="commReg" parameterType="kr.smhrd.model.CommVO">
+			insert into MENT(post_id, cm_detail, cm_writer)
+			values(#{post_id}, #{cm_detail}, #{cm_writer})
+		</insert>
+		
+		<update id="update" parameterType="kr.smhrd.model.BoardVO">
+			update post set project_name=#{project_name}, post_title=#{post_title}, post_detail=#{post_detail}, post_writer=#{post_writer}
+			where post_id=#{post_id}
+		</update>
+		
+		<delete id="mentRemove" parameterType="int">
+			delete from MENT where post_id=#{post_id}
+		</delete>
+		
+		<delete id="remove" parameterType="int">
+			delete from post where post_id=#{post_id}
+		</delete>
+		
+		<select id="getFileL" resultType="kr.smhrd.model.FileVO" parameterType="int">
+			select * from ATTACH where post_id=#{post_id}
+		</select>
+		
+		<delete id="fileRemove" parameterType="int">
+			delete from ATTACH where post_id=#{post_id}
+		</delete>
+		
+		
+		
+		
+</mapper>

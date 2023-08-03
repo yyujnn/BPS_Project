@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.smhrd.mapper.KanbanMapper">
+
+	<insert id="Project" parameterType="kr.smhrd.model.KanbanVO">
+		INSERT INTO TEAM_PROJECT (project_id, user_id, project_com, project_name, project_start, project_end)
+		VALUES (TEAM_PROJECT_SEQ3.NEXTVAL, #{user_id},#{project_com}, #{project_name}, #{project_start}, #{project_end})
+	</insert>
+	
+	
+	<select id="selectKan" parameterType="kr.smhrd.model.KanbanVO" resultType="kr.smhrd.model.KanbanVO">
+		select project_name, project_start, project_end from team_project where project_name = #{project_name}
+	</select>
+	
+</mapper>

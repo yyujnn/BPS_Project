@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 1) dtd : document type definition -->
+  
+<configuration>
+<!-- 2) properties : 외부 파일 읽어오기 -->
+  <properties resource="kr/smhrd/db/db.properties"/>
+  
+  <!-- 3) environments : 데이터베이스들을 기술하는 공간 -->
+  <environments default="development">
+  
+  <!--  4) environment : 데이터베이스 한개에 대한 정보를 기술하는 공간 -->
+    <environment id="development">
+    
+    <!-- 5) transcationManager : 트랜잭션 관리 주체 설정 -->
+      <transactionManager type="JDBC"/>
+      
+      <!--  6) dataSource : connection 객체 생성 후 관리 설정
+      		   POOLED >> 미리 connection 객체를 생성해서 필요할 때마다 빌려주기
+      -->
+      
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <!--  SQL구문을 우리는 이제부터 mapper.xml이라는 곳에 작성 -->
+  <mappers>
+  <!--  mapper파일이 추가될 때마다, 하나씩 추가해서 기술해줄 것 -->
+    <mapper resource="kr/smhrd/db/MemberMapper.xml"/>
+    <mapper resource="kr/smhrd/db/CalendarMapper.xml"/>
+    <mapper resource="kr/smhrd/db/KanbanMapper.xml"/>
+  </mappers>
+</configuration>

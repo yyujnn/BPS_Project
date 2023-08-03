@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL 구문을 기술하는 공간 -->
+<mapper namespace="kr.smhrd.model.MemberDAO">
+	<!-- namespace : 해당하는 mapper 파일을 사용하게 될 DAO의 이름을 작성해주는 것이 원칙 -->
+	<!-- parameterType : DAO에서 받아오는 데이터가 있을 때 작성
+						 >> 반드시 full name 작성(패키지 명까지) -->
+	<insert id="join" parameterType="kr.smhrd.model.MemberVO">
+		INSERT INTO USER_INFO
+		VALUES (#{USER_ID}, #{USER_PW}, #{USER_NAME})
+	</insert>
+	
+	<select id="login" parameterType="kr.smhrd.model.MemberVO" resultType="kr.smhrd.model.MemberVO">
+		SELECT USER_ID, USER_PW, USER_NAME FROM USER_INFO WHERE USER_ID=#{USER_ID} and USER_PW=#{USER_PW}
+	</select>
+	
+	<!-- List로 생성하는 건 mybatis 내부적으로 알아서 다 해줌!! -->
+	
+	<select id="test" resultType="kr.smhrd.model.ProjectVO">
+		SELECT * FROM TEAM_PROJECT WHERE USER_ID= #{USER_ID}
+	</select>
+	
+	<select id="gantt" resultType="kr.smhrd.model.GanttVO">
+		SELECT GANTT_ID, TITLE, TO_CHAR(START_DATE, 'YYYY-MM-DD') AS START_DATE, DUR, GT_TYPE, GT_PARENT, PROGRESS FROM GANTT WHERE USER_ID=#{USER_ID}
+
+	</select>
+	
+	<insert id="gtlist" parameterType="kr.smhrd.model.GanttVO">
+		INSERT INTO GANTT
+		VALUES (#{GANTT_ID}, #{TITLE}, '2023-05-01', #{DUR}, #{GT_TYPE}, #{GT_PARENT}, #{PROGRESS}, #{USER_ID})
+	</insert>
+	
+	<update id="gtupdate" parameterType="kr.smhrd.model.GanttVO">
+		UPDATE GANTT SET
+        TITLE = #{TITLE},
+        START_DATE = '2023-05-01',
+        DUR = #{DUR},
+        GT_TYPE = #{GT_TYPE},
+        GT_PARENT = #{GT_PARENT},
+        PROGRESS = #{PROGRESS},
+	    WHERE GANTT_ID = #{GANTT_ID}
+	</update>
+
+</mapper>
